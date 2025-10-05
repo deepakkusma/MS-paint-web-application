@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MS Paint Web</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' fill='%23ffffff' stroke='%23000000' stroke-width='1'/><rect x='2' y='2' width='20' height='20' fill='%23ffffff' stroke='%23000000' stroke-width='1'/><rect x='4' y='4' width='16' height='16' fill='%23ffffff'/><path d='M6 6h12v2H6V6zm0 4h12v2H6v-2zm0 4h8v2H6v-2z' fill='%23000000'/><circle cx='18' cy='18' r='2' fill='%23ff0000'/><path d='M16 16l4 4' stroke='%23000000' stroke-width='1'/></svg>" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="ribbon">
+      <div class="ribbon-left">
+        <div class="app-brand">
+          <img src="/MSPaint.webp" alt="MS Paint Icon" class="web-icon">
+          <span>MS Paint</span>
+        </div>
+        <div class="group">
+          <div class="group-title">Selection</div>
+          <div class="group-body">
+            <button data-tool="select" class="tool" title="Select" aria-label="Select">
+              <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 4 L10 4 L10 10 L4 10 Z M14 4 L20 4 L20 10 L14 10 Z M4 14 L10 14 L10 20 L4 20 Z M14 14 L20 14 L20 20 L14 20 Z"/></svg>
+            </button>
+            <button id="btnUndo" class="tool" title="Undo (Ctrl+Z)" aria-label="Undo">
+              <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+            </button>
+            <button id="btnRedo" class="tool" title="Redo (Ctrl+Y)" aria-label="Redo">
+              <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3L21 13"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="group">
+          <div class="group-title">Tools</div>
+          <div class="group-body">
+            <button data-tool="brush" class="tool" title="Brush" aria-label="Brush">
+              <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M3 17 C5 17 6 16 7 15 L18 4 C19 3 21 5 20 6 L9 17 C8 18 7 19 5 19 C4 19 3 20 3 21"/></svg>
+            </button>
+            <button data-tool="eraser" class="tool" title="Eraser" aria-label="Eraser">
+              <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M3 16 L10 9 L15 14 L8 21 H3 Z M10 9 L14 5 L21 12 L17 16"/></svg>
+            </button>
+            <button data-tool="fill" class="tool" title="Fill" aria-label="Fill">
+              <svg viewBox="0 0 24 24" class="icon" aria-hidden="true">
+                <path d="M7 8 L13 14 L9 18 A4 4 0 0 1 3 12 Z"/>
+                <path d="M15 10 C17 10 19 12 19 14 C19 16 17 18 15 18"/>
+              </svg>
+            </button>
+            <button data-tool="stroke" class="tool" title="Stroke" aria-label="Stroke">
+              <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 12 H20"/></svg>
+            </button>
+            <button data-tool="line" class="tool" title="Line" aria-label="Line">
+              <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 20 L20 4"/></svg>
+            </button>
+            <button data-tool="curve" class="tool" title="Curve" aria-label="Curve">
+              <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 18 Q12 6 20 6"/></svg>
+            </button>
+            <button data-tool="arrow" class="tool" title="Arrow" aria-label="Arrow">
+              <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 20 L16 8"/><path d="M12 8 L16 8 L16 12"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="group shapes-group">
+          <div class="group-title">Shapes</div>
+          <div class="group-body shapes-scroll">
+            <button data-tool="rect" class="tool" title="Rectangle" aria-label="Rectangle"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="2" ry="2"/></svg></button>
+            <button data-tool="roundrect" class="tool" title="Rounded Rectangle" aria-label="Rounded Rectangle"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="4" ry="4"/></svg></button>
+            <button data-tool="ellipse" class="tool" title="Ellipse" aria-label="Ellipse"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><ellipse cx="12" cy="12" rx="8" ry="6"/></svg></button>
+            <button data-tool="circle" class="tool" title="Circle" aria-label="Circle"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg></button>
+            <button data-tool="square" class="tool" title="Square" aria-label="Square"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><rect x="6" y="6" width="12" height="12"/></svg></button>
+            <button data-tool="diamond" class="tool" title="Diamond" aria-label="Diamond"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 4 L20 12 L12 20 L4 12 Z"/></svg></button>
+            <button data-tool="triangle" class="tool" title="Triangle" aria-label="Triangle"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 5 L20 19 L4 19 Z"/></svg></button>
+            <button data-tool="triangleRight" class="tool" title="Right Triangle" aria-label="Right Triangle"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 5 L19 19 L5 19 Z"/></svg></button>
+            <button data-tool="triangleIso" class="tool" title="Isosceles Triangle" aria-label="Isosceles Triangle"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 4 L20 20 L4 20 Z"/></svg></button>
+            <button data-tool="star" class="tool" title="Star" aria-label="Star"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 3 L14.9 8.6 L21 9.5 L16.5 13.6 L17.8 19.6 L12 16.6 L6.2 19.6 L7.5 13.6 L3 9.5 L9.1 8.6 Z"/></svg></button>
+            <button data-tool="star4" class="tool" title="4-Point Star" aria-label="Four-Point Star"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 3 L14 12 L12 21 L10 12 Z M3 12 L12 14 L21 12 L12 10 Z"/></svg></button>
+            <button data-tool="star5" class="tool" title="5-Point Star" aria-label="Five-Point Star"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 3 L14.9 8.6 L21 9.5 L16.5 13.6 L17.8 19.6 L12 16.6 L6.2 19.6 L7.5 13.6 L3 9.5 L9.1 8.6 Z"/></svg></button>
+            <button data-tool="star6" class="tool" title="6-Point Star" aria-label="Six-Point Star"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 3 L14 9 L21 12 L14 15 L12 21 L10 15 L3 12 L10 9 Z"/></svg></button>
+            <button data-tool="polygon5" class="tool" title="Pentagon" aria-label="Pentagon"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 4 L20 9 L17 20 H7 L4 9 Z"/></svg></button>
+            <button data-tool="polygon6" class="tool" title="Hexagon" aria-label="Hexagon"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M7 5 H17 L21 12 L17 19 H7 L3 12 Z"/></svg></button>
+            <button data-tool="donut" class="tool" title="Donut" aria-label="Donut"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg></button>
+            <button data-tool="cross" class="tool" title="Cross" aria-label="Cross"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 5 L19 19 M19 5 L5 19"/></svg></button>
+            <button data-tool="arrowLeft" class="tool" title="Left Arrow" aria-label="Left Arrow"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M9 6 L3 12 L9 18"/><path d="M3 12 H21"/></svg></button>
+            <button data-tool="arrowRight" class="tool" title="Right Arrow" aria-label="Right Arrow"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M15 6 L21 12 L15 18"/><path d="M3 12 H21"/></svg></button>
+            <button data-tool="arrowUp" class="tool" title="Up Arrow" aria-label="Up Arrow"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 3 L18 9"/><path d="M12 3 L6 9"/><path d="M12 3 V21"/></svg></button>
+            <button data-tool="arrowDown" class="tool" title="Down Arrow" aria-label="Down Arrow"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 21 L18 15"/><path d="M12 21 L6 15"/><path d="M12 3 V21"/></svg></button>
+            <button data-tool="arrowLR" class="tool" title="Left-Right Arrow" aria-label="Left-Right Arrow"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M9 6 L3 12 L9 18"/><path d="M15 6 L21 12 L15 18"/><path d="M3 12 H21"/></svg></button>
+            <button data-tool="arrowUD" class="tool" title="Up-Down Arrow" aria-label="Up-Down Arrow"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 3 L18 9"/><path d="M12 3 L6 9"/><path d="M12 21 L18 15"/><path d="M12 21 L6 15"/><path d="M12 3 V21"/></svg></button>
+            <button data-tool="calloutRounded" class="tool" title="Rounded Callout" aria-label="Rounded Callout"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M6 6 H18 A2 2 0 0 1 20 8 V14 A2 2 0 0 1 18 16 H10 L7 19 V16 H6 A2 2 0 0 1 4 14 V8 A2 2 0 0 1 6 6 Z"/></svg></button>
+            <button data-tool="calloutCloud" class="tool" title="Cloud Callout" aria-label="Cloud Callout"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M7 17 H17 A3 3 0 0 0 20 14 A3 3 0 0 0 17 11 A4 4 0 0 0 9 10 A3 3 0 0 0 4 13 A3 3 0 0 0 7 17 Z"/></svg></button>
+            <button data-tool="heart" class="tool" title="Heart" aria-label="Heart"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 20 C10 18 6 15 5 12 C4 9 6 7 8 7 C10 7 11 8.5 12 9.5 C13 8.5 14 7 16 7 C18 7 20 9 19 12 C18 15 14 18 12 20 Z"/></svg></button>
+            <button data-tool="bolt" class="tool" title="Lightning" aria-label="Lightning"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M13 2 L6 14 H12 L11 22 L18 10 H12 Z"/></svg></button>
+            <button data-tool="sun" class="tool" title="Sun" aria-label="Sun"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2 V6 M12 18 V22 M2 12 H6 M18 12 H22 M4.5 4.5 L7 7 M17 17 L19.5 19.5 M17 7 L19.5 4.5 M4.5 19.5 L7 17"/></svg></button>
+            <button data-tool="moon" class="tool" title="Moon" aria-label="Moon"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M15 2 A9 9 0 1 0 22 15 A7 7 0 0 1 15 2 Z"/></svg></button>
+            <button data-tool="text" class="tool" title="Text" aria-label="Text"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 6 H19 M12 6 V18 M7 18 H17"/></svg></button>
+          </div>
+        </div>
+        <div class="group">
+          <div class="group-title">Brush</div>
+          <div class="group-body">
+            <label class="compact">W <input id="strokeWidth" type="range" min="1" max="24" value="2" /></label>
+            <label class="compact">F <input id="fontSize" type="number" min="10" max="64" value="18" /></label>
+            <label class="compact">T <input id="textColor" type="color" value="#000000" /></label>
+          </div>
+        </div>
+        <div class="group">
+          <div class="group-title">AI Tools</div>
+          <div class="group-body">
+            <button data-tool="aiAutoComplete" class="tool" title="AI Auto Complete" aria-label="AI Auto Complete">
+              <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 2 L2 7 L12 12 L22 7 Z"/><path d="M2 17 L12 22 L22 17"/><path d="M2 12 L12 17 L22 12"/></svg>
+            </button>
+            <button data-tool="aiColorize" class="tool" title="AI Colorize" aria-label="AI Colorize">
+              <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            </button>
+            <button data-tool="aiEnhance" class="tool" title="AI Enhance" aria-label="AI Enhance">
+              <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 2 L13.09 8.26 L22 9 L17 14 L18.18 22 L12 18.77 L5.82 22 L7 14 L2 9 L10.91 8.26 Z"/></svg>
+            </button>
+            <button data-tool="aiGenerate" class="tool" title="AI Generate" aria-label="AI Generate">
+              <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M9 12 L11 14 L15 10"/><path d="M21 12 C21 16.97 16.97 21 12 21 C7.03 21 3 16.97 3 12 C3 7.03 7.03 3 12 3 C16.97 3 21 7.03 21 12 Z"/></svg>
+            </button>
+            <button data-tool="aiStyle" class="tool" title="AI Style Transfer" aria-label="AI Style Transfer">
+              <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 2 L2 7 L12 12 L22 7 Z"/><path d="M2 17 L12 22 L22 17"/><path d="M2 12 L12 17 L22 12"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="group colors-group">
+          <div class="group-title">Colours</div>
+          <div class="group-body colors">
+            <div class="color-swatches" id="colorSwatches"></div>
+            <div class="color-controls">
+              <label class="compact">Stroke <input id="strokeColor" type="color" value="#222222" /></label>
+              <label class="compact">Fill <input id="fillColor" type="color" value="#ffffff" /></label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ribbon-right">
+        <input id="titleInput" class="title" type="text" placeholder="Untitled" />
+        <button id="btnNew" class="secondary">New</button>
+        <button id="btnExport" class="primary">Save</button>
+        <button id="btnSaveDb" class="secondary">Save to DB</button>
+        <select id="drawingSelect"></select>
+        <button id="btnLoadDb" class="secondary">Load</button>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="canvas-wrap">
+        <canvas id="canvas" width="1600" height="900"></canvas>
+        <textarea id="textEditor" class="hidden"></textarea>
+      </section>
+    </main>
+
+    <div id="saveModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-title">Save as</div>
+        <div class="modal-actions">
+          <button id="optPng" class="primary">PNG</button>
+          <button id="optPdf" class="secondary">PDF</button>
+          <button id="optDoc" class="secondary">Word</button>
+        </div>
+        <button id="optCancel" class="secondary modal-close">Cancel</button>
+      </div>
+      <div class="modal-backdrop"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="/app.js"></script>
+  </body>
+  </html>
+
+
